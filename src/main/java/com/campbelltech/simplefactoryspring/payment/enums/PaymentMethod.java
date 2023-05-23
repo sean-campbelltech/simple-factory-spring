@@ -1,4 +1,4 @@
-package com.campbelltech.simplefactoryspring;
+package com.campbelltech.simplefactoryspring.payment.enums;
 
 public enum PaymentMethod {
     CREDIT_CARD,

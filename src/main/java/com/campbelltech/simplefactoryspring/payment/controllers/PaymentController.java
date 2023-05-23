@@ -1,5 +1,8 @@
-package com.campbelltech.simplefactoryspring;
+package com.campbelltech.simplefactoryspring.payment.controllers;
 
+import com.campbelltech.simplefactoryspring.payment.PaymentService;
+import com.campbelltech.simplefactoryspring.payment.PaymentFactory;
+import com.campbelltech.simplefactoryspring.payment.dto.PaymentDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +22,8 @@ public class PaymentController {
     @PostMapping(path = "/makePayment")
     public ResponseEntity<String> pay(@RequestBody PaymentDto paymentDto) {
         try {
-            Payment payment = paymentFactory.create(paymentDto.paymentMethod);
-            return new ResponseEntity<>(payment.pay(paymentDto.amount), HttpStatus.OK);
+            PaymentService paymentService = paymentFactory.create(paymentDto.paymentMethod);
+            return new ResponseEntity<>(paymentService.pay(paymentDto.amount), HttpStatus.OK);
         } catch (ClassNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
